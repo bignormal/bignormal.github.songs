@@ -1,0 +1,316 @@
+body {
+    /*100%窗口高度*/
+    height: 100vh;
+    /*弹性布局 居中*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*渐变背景*/
+    background: linear-gradient(200deg,#e3c5eb, #a9c1ed);
+    /*溢出隐藏*/
+   overflow: hidden;
+}
+
+
+
+button {
+   
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #f00;
+}
+
+.tops {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 2.5%;
+  }
+
+  .tops button{
+    background-color: transparent;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin: 0 15px;
+    font-size: 24px;
+    color: #152d6e;
+    transition: color 0.2s ease-in-out;
+    width: 500px;
+    height: 55px;
+    border: none; /*隐藏边框*/
+    background: linear-gradient(-200deg, #9e3f7e, #374256);
+    color: #fff; 
+    font-weight: bold;
+    letter-spacing: 8px;
+    border-radius: 45px;/*登录按钮弧度*/
+    cursor: pointer;
+    /*动画过渡*/
+    transition: 0.5s;
+  }
+
+  
+.container {
+   /* border: solid 5px #b0b6d2;*/
+   background-color: rgba(255, 255, 255, 0.25);
+    margin: 50px auto;
+    width: 800px;
+    height: 550px;
+    /*background-color: #fff;*/
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    /*background-color: transparent;*/
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 5px;
+    width: 300px;
+}
+
+.search input[type="text"] {
+    border: none;
+    background-color: transparent;
+    flex: 1;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.search button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.music-list {
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+.music-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.music-item:hover {
+    background-color: #f2f2f2;
+}
+
+.music-item.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.music-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.music-item .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #333;
+}
+
+.music-item .info .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.music-item .info .artist {
+    font-size: 14px;
+    color: #999;
+}
+
+.controls {
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.controls button {
+   background-color: transparent;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin: 0 15px;
+    font-size: 24px;
+    color: #152d6e;
+
+    transition: color 0.2s ease-in-out;
+    width: 200px;
+    height: 50px;
+    border: none; /*隐藏边框*/
+    background: linear-gradient(-200deg, #fac0e7, #aac2ee);
+    color: #fff; 
+    font-weight: bold;
+    letter-spacing: 8px;
+    border-radius: 45px;/*登录按钮弧度*/
+    cursor: pointer;
+    /*动画过渡*/
+    transition: 0.5s;
+}
+
+
+.controls button:hover {
+    color: rgb(79, 26, 94);
+}
+
+.controls button.disabled {
+   
+   color: rgb(79, 26, 94);
+    cursor: pointer;
+    border-radius: 45px;
+    width: 150px;
+}
+
+.progress {
+    height: 10px;
+    background-color: #f2f2f2;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #384764;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    transition: width 0.15s ease-in-out;
+}
+
+.album {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.album img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.volume {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; 
+    height: 18px; 
+}
+/*音量键*/
+.volume button{
+    background-color: transparent;
+    background:  #13161b;
+    height: 45px;
+}
+
+.volume input[type="range"] {
+    width: 200px;
+    height: 5px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    outline: none;
+    margin: 0 10px;
+}
+
+.volume input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(35, 130, 144);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -8px;
+}
+
+/*进度条鼠标样式*/
+.play:hover, .progress:hover {
+    cursor: pointer;
+  }
+  /*进度条移动光点*/
+
+  .music-list .music-item.active .info .title {
+    color: red;
+    }
+
+/*隐藏mv的时间案件进度条*/
+    video::-webkit-media-controls-play-button,
+    video::-webkit-media-controls-current-time-display,
+    video::-webkit-media-controls-time-remaining-display {
+      display: none !important;
+    }
+    
+    video::-webkit-media-controls {
+        display: none !important;
+      }
+      

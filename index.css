@@ -1,0 +1,216 @@
+*{
+    /*初始化*/
+    margin:0; /*垂直居中*/
+   padding: 0; /*水平居中*/
+}
+body {
+    /*100%窗口高度*/
+    height: 100vh;
+    /*弹性布局 居中*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*渐变背景*/
+    background: linear-gradient(200deg,#e3c5eb, #a9c1ed);
+    /*溢出隐藏*/
+    overflow: hidden;
+}
+
+.container {
+    /*相对定位*/
+    position: relative;
+    z-index: 1;
+    background-color: #fff; /*背景色*/
+    border-radius: 20px;
+    display: flex;
+/*弹性布局 垂直排列*/
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 450px;
+    margin-top:150px;
+    /*阴影*/
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.container .tit{
+    font-size: 26px;
+    margin: 40px auto 40px auto;
+}
+
+.container input{
+    width: 280px;
+    height: 30px;
+    text-indent: 8px;
+    border: none; /*隐藏边框*/
+    border-bottom: 1px solid #ddd; /*边框色*/
+    outline: none; /*不显示边框输入框*/
+    margin: 12px auto;
+}
+
+.container button{
+    width: 280px;
+    height: 40px;
+    margin: 35px auto 40px auto; /*居中展示*/
+    border: none; /*隐藏边框*/
+    background: linear-gradient(-200deg, #fac0e7, #aac2ee);
+    color: #fff; 
+    font-weight: bold;
+    letter-spacing: 8px;
+    border-radius: 45px;/*登录按钮弧度*/
+    cursor: pointer;
+    /*动画过渡*/
+    transition: 0.5s;
+}
+
+.container button:hover{
+    /*按钮鼠标放上去变色*/
+    background: linear-gradient(-200deg, #aac2ee, #fac0e7);
+    background-position-x: -280px;
+}
+
+.container span{
+    font-size: 14px;
+}
+
+.container a{
+    color: plum;
+    text-decoration: none; /*隐藏链接方向和换行符*/
+}
+
+
+.container2{
+    background: linear-gradient(0deg, #fac0e7);
+    margin-top: 40px;
+    text-align: center;
+    position: fixed;
+     top: 0;
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0px;
+    animation: showup 4s forwards;
+   
+}
+.text1{
+    font-size: 100px;
+    color: 	#69686f; 
+    margin-top: auto;
+    text-shadow: 2px 2px rgb(49, 48, 55);
+    z-index: 1;
+}
+
+ul li{
+    position: absolute;
+    border: 20px solid #fff; /*边框色*/
+    background-color: #ffffff; /*背景色*/
+    width: 30 px;
+    height: 30 px;
+    list-style: none; /*隐藏列表项*/
+    opacity: 0;
+
+}
+
+.square li{
+    top: 40vh;
+    left: 60vw;
+    /*执行动画： 动画名 时长 线性的 无限次播放*/
+    animation: square 10s linear infinite;
+}
+
+
+.square li:nth-child(2){
+    top: 80vh;
+    left: 10vw;
+    /*设置动画延迟*/
+    animation-delay: 2s;
+}
+.square li:nth-child(3){
+    top: 80vh;
+    left: 85vw;
+    animation-delay: 4s;
+}
+.square li:nth-child(4){
+    top: 10vh;
+    left: 70vw;
+    animation-delay: 6s;
+}
+.square li:nth-child(5){
+    top: 10vh;
+    left: 10vw;
+    animation-delay: 8s;
+}
+
+.circle li{
+    bottom: 0;
+    left: 15vw;
+    /*执行动画*/
+    animation: circle 10s linear infinite;
+}
+
+.circle li:nth-child(2){
+    left: 35vw;
+    /*设置动画延迟时间*/
+    animation: 2s;
+}
+
+.circle li:nth-child(3){
+    left: 55vw;
+    /*设置动画延迟时间*/
+    animation: 6s;
+}
+.circle li:nth-child(4){
+    left: 75vw;
+    /*设置动画延迟时间*/
+    animation: 4s;
+}
+.circle li:nth-child(5){
+    left: 90vw;
+    /*设置动画延迟时间*/
+    animation: 8s;
+}
+
+
+
+/*定义动画*/
+@keyframes square {
+    0%{
+        /*显示第一个游戏卡片*/
+    transform: scale(0) rotateY(0deg);
+    opacity: 1;
+    }
+    100%{
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0; /*隐藏游戏卡片*/
+    }
+
+}
+
+/*定义动画*/
+@keyframes circle {
+    0%{
+        /*显示第一个游戏卡片*/
+    transform: scale(0) rotateY(0deg);
+    opacity: 1;
+    bottom: 0; /*设置游戏卡片位置*/
+    border-radius: 0; /*设置游戏卡片圆环的边框*/
+    }
+    100%{
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0; /*隐藏游戏卡片*/
+        bottom: 90vh; /*设置游戏卡片位置*/
+        border-radius: 50%; /*设置游戏卡片圆环的边框*/
+    }
+
+}
+
+@keyframes showup{
+    from{
+        letter-spacing: -50px;
+        filter: blur(15px);
+    }
+    to{
+        letter-spacing: 10px;
+        filter: blur(0);
+    }
+}

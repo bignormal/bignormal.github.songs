@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music library登录页面</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+
+
+    <div class="container">
+        <div class="tit">登录</div>
+        <input type="text" id="username" placeholder="账号">
+        <input type="password" id="password" placeholder="密码">
+        <button onclick="login()">登录</button>
+    </div>
+    
+
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            if (username === "猪宝播放器" && password === "1023") {
+                window.location.href = "music.html";
+            } else {
+                alert("找老公要账号密码");
+            }
+        }
+        </script>
+
+
+
+<div class="square">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<div class="circle">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+         <div class="container2">
+            <span class="text1">Just for you Music library</span></div>
+
+</body>
+</html>

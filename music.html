@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猪宝播放器</title>
+    <link rel="stylesheet" type="text/css" href="music.css">
+
+	<!--<nav>
+        <a href="index.html">首页</a>
+        <a href="about.html">关于我们</a>
+        <a href="contact.html">联系我们</a>
+    </nav> -->
+</head>
+<body>
+
+	<div class="tops">
+		<button onclick="care()">点击这里获取您的专属猪宝客服</button>
+	</div>
+
+
+    <div class="container">
+		<div class="header">
+			<div class="title">猪宝音乐播放器</div>
+
+			<div class="search">
+				<input type="text" placeholder="搜索音乐">
+				<button>搜索</button>
+			</div>
+
+		</div>
+
+	
+			<div class="music-list">
+				<!-- 使用 JavaScript 动态创建音乐列表项 -->
+			</div>
+			
+		
+		
+		<div class="controls">
+			<button >上一首</button>
+			<button class="play">播放</button>
+			<button>下一首</button>
+		</div>
+
+		<div class="progress">
+			<div class="progress-bar"></div>
+		</div>
+
+		<div class="album">
+			<img src="img/Image1.jpg" alt="">
+		</div>
+
+		<div class="volume">
+			<input type="range" min="0" max="100" value="50">
+			<button>T i p : 这里调节音量哦</button>
+		</div>
+
+
+
+		<div class="duration">0:00</div> 
+
+
+	</div>
+
+	<script>
+const musicList = document.querySelector('.music-list');
+const playBtn = document.querySelector('.play');
+const prevBtn = document.querySelector('.controls button:first-child');
+const nextBtn = document.querySelector('.controls button:last-child');
+const progressBar = document.querySelector('.progress-bar');
+const album = document.querySelector('.album img');
+const volumeSlider = document.querySelector('.volume input[type="range"]');
+const videoPlayer = document.createElement('video');
+videoPlayer.controls = true;
+videoPlayer.autoplay = true;
+let currentMusicIndex = 0;
+let isPlaying = false;
+let isDragging = false;
+let progressIntervalId = null;
+
+// 歌曲列表
+const musicData = [
+    {
+		title: 'Showtime',
+		artist: '无',
+		src: 'music/Showtime.mp3',
+		cover: 'img/image5.jpg',
+		mv: 'mv/01.mp4',
+	},
+	{
+		title: 'Falling_You',
+		artist: '无',
+		src: 'music/Falling_You.mp3',
+		cover: 'img/image1.jpg',
+		mv: 'mv/06.mp4',
+	},
+	{
+		title: 'Wellerman ',
+		artist: '无',
+		src: 'music/Wellerman.mp3',
+		cover: 'img/image2.jpg',
+		mv: 'mv/13.mp4',
+	},
+	{
+		title: '猪猪侠',
+		artist: '无',
+		src: 'music/zhuzhuxia.mp3',
+		cover: 'img/image3.jpg',
+		mv: 'mv/05.mp4',
+	},
+	{
+		title: '姑娘在远方',
+		artist: '无',
+		src: 'music/姑娘在远方.mp3',
+		cover: 'img/image4.jpg',
+		mv: 'mv/02.mp4',
+	},
+	{
+		title: '开往早晨的午夜',
+		artist: '无',
+		src: 'music/开往早晨的午夜.mp3',
+		cover: 'img/image6.jpg',
+		mv: 'mv/18.mp4',
+	},
+	{
+		title: '离人赋',
+		artist: '无',
+		src: 'music/离人赋.mp3',
+		cover: 'img/image7.jpg',
+		mv: 'mv/20.mp4',
+	},
+	{
+		title: '三拜红尘凉',
+		artist: '无',
+		src: 'music/三拜红尘凉.mp3',
+		cover: 'img/image8.jpg',
+		mv: 'mv/17.mp4',
+	},
+	{
+		title: '山茶花读不懂白玫瑰 ',
+		artist: '无',
+		src: 'music/山茶花读不懂白玫瑰 .mp3',
+		cover: 'img/image9.jpg',
+		mv: 'mv/07.mp4',
+	},
+	{
+		title: '天若有情',
+		artist: '无',
+		src: 'music/天若有情.mp3',
+		cover: 'img/image10.jpg',
+		mv: 'mv/19.mp4',
+	},
+	{
+		title: '循迹',
+		artist: '无',
+		src: 'music/循迹.mp3',
+		cover: 'img/image11.jpg',
+		mv: 'mv/22.mp4',
+	},
+	{
+		title: 'realshow',
+		artist: '前哥',
+		src: 'music/realshow.mp3',
+		cover: 'img/image12.jpg',
+		mv: 'mv/01.mp4',
+	},
+	{
+		title: '如果一个人',
+		artist: '前哥',
+		src: 'music/如果一个人.mp3',
+		cover: 'img/image13.jpg',
+		mv: 'mv/03.mp4',
+	},
+	{
+		title: '真的不容易',
+		artist: '前哥',
+		src: 'music/真的不容易.mp3',
+		cover: 'img/image14.jpg',
+		mv: 'mv/04.mp4',
+	},
+	{
+		title: '练',
+		artist: '前哥',
+		src: 'music/练.mp3',
+		cover: 'img/image15.jpg',
+		mv: 'mv/24.mp4',
+	},
+	{
+		title: '还是那个模样',
+		artist: '前哥',
+		src: 'music/还是那个模样.mp3',
+		cover: 'img/image16.jpg',
+		mv: 'mv/08.mp4',
+	},
+	{
+		title: '寂寞才说爱',
+		artist: '前哥',
+		src: 'music/寂寞才说爱.mp3',
+		cover: 'img/image17.jpg',
+		mv: 'mv/04.mp4',
+	},
+	{
+		title: '上天呐',
+		artist: '前哥',
+		src: 'music/上天呐.mp3',
+		cover: 'img/image20.jpg',
+		mv: 'mv/25.mp4',
+	},
+	{
+		title: '我不是刘德华',
+		artist: '前哥',
+		src: 'music/我不是刘德华.mp3',
+		cover: 'img/image23.jpg',
+		mv: 'mv/09.mp4',
+	},
+	{
+		title: '我想要',
+		artist: '前哥',
+		src: 'music/我想要.mp3',
+		cover: 'img/image24.jpg',
+		mv: 'mv/12.mp4',
+	},
+	{
+		title: '夏日的晚风',
+		artist: '前哥',
+		src: 'music/夏日的晚风.mp3',
+		cover: 'img/image25.jpg',
+		mv: 'mv/11.mp4',
+	},
+	{
+		title: '心引力',
+		artist: '前哥',
+		src: 'music/心引力.mp3',
+		cover: 'img/image26.jpg',
+		mv: 'mv/21.mp4',
+	},
+	{
+		title: '多情种',
+		artist: '前哥',
+		src: 'music/多情种.mp3',
+		cover: 'img/image27.jpg',
+		mv: 'mv/04.mp4',
+	},
+	{
+		title: '高雅先生',
+		artist: '前哥',
+		src: 'music/高雅先生.mp3',
+		cover: 'img/image28.jpg',
+		mv: 'mv/16.mp4',
+	},
+	{
+		title: '好想抱住你',
+		artist: '前哥',
+		src: 'music/好想抱住你.mp3',
+		cover: 'img/image29.jpg',
+		mv: 'mv/15.mp4',
+	},
+	{
+		title: '后续',
+		artist: '前哥',
+		src: 'music/后续.mp3',
+		cover: 'img/image30.jpg',
+		mv: 'mv/14.mp4',
+	},
+	
+	// ...
+];
+
+// 动态创建音乐列表项
+for (let i = 0; i < musicData.length; i++) {
+	const musicItem = document.createElement('div');
+	musicItem.classList.add('music-item');
+	if (i === currentMusicIndex) {
+		musicItem.classList.add('active');
+	}
+	musicItem.innerHTML = `
+		<img src="${musicData[i].cover}" alt="">
+		<div class="info">
+			<div class="title">${musicData[i].title}</div>
+			<div class="artist">${musicData[i].artist}</div>
+		</div>
+	`;
+	musicItem.dataset.src = musicData[i].src;
+	musicItem.dataset.mv = musicData[i].mv;
+	musicItem.addEventListener('click', () => {
+		currentMusicIndex = i;
+		playMusic();
+	});
+	musicList.appendChild(musicItem);
+}
+
+const audio = new Audio();
+audio.src = musicData[currentMusicIndex].src;
+
+// 播放/暂停音乐
+playBtn.addEventListener('click', () => {
+	if (isPlaying) {
+		pauseMusic();
+	} else {
+		playMusic();
+	}
+});
+
+// 上一首
+prevBtn.addEventListener('click', () => {
+	currentMusicIndex--;
+	if (currentMusicIndex < 0) {
+		currentMusicIndex = musicData.length - 1;
+	}
+	playMusic();
+});
+
+// 下一首
+nextBtn.addEventListener('click', () => {
+	currentMusicIndex++;
+	if (currentMusicIndex >= musicData.length) {
+		currentMusicIndex = 0;
+	}
+	playMusic();
+});
+
+// 监听播放进度
+progressBar.addEventListener('mousedown', () => {
+	isDragging = true;
+});
+
+progressBar.addEventListener('mouseup', () => {
+	isDragging = false;
+	const newProgress = progressBar.clientWidth / progressBar.parentNode.clientWidth;
+	const newTime = newProgress * audio.duration;
+	audio.currentTime = newTime;
+});
+
+progressBar.addEventListener('click', (event) => {
+	const clickProgress = event.offsetX / progressBar.clientWidth;
+	const newTime = clickProgress * audio.duration;
+	audio.currentTime = newTime;
+});
+
+
+
+
+
+// 播放音乐
+function playMusic() {
+
+// ...
+album.style.animationPlayState = 'running';
+  
+  // 设置专辑图片
+  album.src = musicData[currentMusicIndex].cover;
+  
+  // ...
+
+	isPlaying = true;
+	playBtn.classList.remove('disabled');
+	playBtn.innerHTML = '暂停';
+	audio.src = musicData[currentMusicIndex].src;
+	audio.play();
+	musicList.querySelector('.active').classList.remove('active');
+	musicList.querySelectorAll('.music-item')[currentMusicIndex].classList.add('active');
+	album.style.animationPlayState = 'running';
+	progressIntervalId = setInterval(() => {
+  if (!isDragging) {
+    const duration = audio.duration;
+    const currentTime = audio.currentTime;
+    const remainingTime = duration - currentTime;
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = Math.floor(remainingTime % 60);
+    const remainingTimeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    document.querySelector('.duration').textContent = `${remainingTimeStr} / ${Math.floor(duration / 60)}:${Math.floor(duration % 60).toString().padStart(2, '0')}`;
+    const progress = audio.currentTime / audio.duration;
+    progressBar.style.width = `${progress * 100}%`;
+  }
+}, 100);
+
+	// 播放对应的 MV
+	const mvUrl = musicData[currentMusicIndex].mv;
+	if (mvUrl) {
+		videoPlayer.style.position = 'fixed'; // 将视频定位为固定位置
+	videoPlayer.style.top = 0;
+	videoPlayer.style.left = 0;
+	videoPlayer.style.width = '100%';
+	videoPlayer.style.height = '100%';
+	videoPlayer.style.zIndex = -1; // 将视频放到最上层
+		videoPlayer.src = mvUrl;
+		videoPlayer.muted = true; // 静音播放
+	     videoPlayer.loop = true; // 循环播放
+		document.body.appendChild(videoPlayer);
+	}
+}
+
+
+
+
+// 暂停音乐
+function pauseMusic() {
+	isPlaying = false;
+	playBtn.classList.add('disabled');
+	playBtn.innerHTML = '播放';
+	audio.pause();
+	album.style.animationPlayState = 'paused';
+	clearInterval(progressIntervalId);
+
+	// 暂停对应的 MV
+	if (videoPlayer.parentNode) {
+		videoPlayer.pause();
+		videoPlayer.parentNode.removeChild(videoPlayer);
+	}
+}
+
+// 调节音量
+volumeSlider.addEventListener('input', () => {
+	audio.volume = volumeSlider.value / 100;
+});
+
+// 监听音乐播放结束事件
+audio.addEventListener('ended', () => {
+	currentMusicIndex++;
+	if (currentMusicIndex >= musicData.length) {
+		currentMusicIndex = 0;
+	}
+	playMusic();
+});
+
+	</script>
+	
+       <script>
+		//搜索功能实现
+		const searchInput = document.querySelector('.search input[type="text"]');
+		const musicItems = document.querySelectorAll('.music-list .music-item');
+		searchInput.addEventListener('input', () => {
+		  const keyword = searchInput.value.trim().toLowerCase();
+		  for (let i = 0; i < musicItems.length; i++) {
+			const title = musicItems[i].querySelector('.info .title').textContent.trim().toLowerCase();
+			const artist = musicItems[i].querySelector('.info .artist').textContent.trim().toLowerCase();
+			if (title.includes(keyword) || artist.includes(keyword)) {
+			  musicItems[i].style.display = 'flex';
+			} else {
+			  musicItems[i].style.display = 'none';
+			}
+		  }
+		});
+	  </script>
+
+        <script>
+			//歌曲播放进度条快进点击操作
+			const progressBarContainer = document.querySelector('.progress');
+progressBarContainer.addEventListener('click', (event) => {
+  const clickProgress = event.offsetX / progressBarContainer.clientWidth;
+  const newTime = clickProgress * audio.duration;
+  audio.currentTime = newTime;
+});
+		</script>
+
+
+<script>
+	audio.addEventListener('ended', () => {
+currentMusicIndex++;
+if (currentMusicIndex >= musicData.length) {
+currentMusicIndex = 0;
+}
+playMusic();
+musicList.querySelector('.active').querySelector('.info .title').style.color = ''; // 将颜色设置回原来的颜色
+});
+</script>
+
+
+     <script>
+	 function care() {
+			window.location.href = "care.html";	
+	 }
+	 </script>
+
+</body>
+</html>
